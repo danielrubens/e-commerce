@@ -10,12 +10,36 @@ const ProductDetails = ({product, products}) => {
                 <div className='image-container'>
                     <img src={urlFor(image && image[0])}/>
                 </div>
+                {/* <div className='small-images-container'>
+                  {image?.map((i, index) => (
+                    <img
+                      src={urlFor(i)}
+                      className=''
+                      onMouseEnter=''
+                    />
+
+                  ))}
+                </div> */}
             </div>
         </div>
     </div>
   )
 }
 
+export const getStaticPaths = async () => {
+  const query = `*[_type == "product"] {
+    slug {
+      current
+    }
+  }`;
+  const products = await client.fetch(query);
+  const paths = products.map((i) => ({
+    params: {
+      slug: i.slug.current
+    }
+  }));
+  return { paths, fallback: 'blocking' }
+}
 export const getStaticProps = async ({params: {slug}}) => {
     const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
     const productsQuery = '*[_type == "product"]'
