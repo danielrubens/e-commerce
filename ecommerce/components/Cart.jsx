@@ -47,23 +47,46 @@ const Cart = () => {
                 <div className='flex bottom'>
                   <div>
                   <p className='quantity-desc'>
-                    <span className='minus' onClick={decQty}>
+                    <span className='minus' onClick=''>
                       <AiOutlineMinus />
                     </span>
                     <span className='num' onClick=''>
-                    {qty}
+                    0
                     </span>
-                    <span className='plus' onClick={incQty}>
+                    <span className='plus' onClick=''>
                       <AiOutlinePlus />
                     </span>
                   </p>
                   </div>
+                  <button
+                    type="button"
+                    className="remove-item"
+                    onClick=""
+                  ><TiDeleteOutline />
+                  </button>
                 </div>
               </div>
             </div>
-
           ))}
         </div>
+        {cartItems.length >=1 && (
+          <div className="cart-bottom">
+            <div className="total">
+              <h3>Subtotal</h3>
+              <h3>${totalPrice}</h3>
+            </div>
+            <div className="btn-container">
+              <button
+                type="button"
+                className="btn"
+                onClick=""
+              >
+                Pay with Stripe
+              </button>
+            </div>
+
+          </div>
+        )}
       </div>
     </div>
   )
