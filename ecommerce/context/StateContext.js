@@ -34,7 +34,9 @@ export const StateContext = ({children}) => {
     const toggleCartItemQuantity = (id, value) => {
         foundProduct = cartItems.find((item) => item._id === id)
         index = cartItems.findIndex((product) => product._id === id);
-        const newCartItems = cartItems.splice((index, 1));
+        // const newCartItems = cartItems.splice((index, 1));
+        // splice method mutates cartItems, which means it updates state, while filter doesn't
+        const newCartItems = cartItems.filter((i) => i._id !== id);
         if(value === 'inc'){
             setCartItems([...newCartItems, {...foundProduct, quantity: foundProduct.quantity + 1}])
             setTotalPrice((prev) => prev + foundProduct.price);
