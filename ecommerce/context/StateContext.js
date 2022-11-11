@@ -33,16 +33,11 @@ export const StateContext = ({children}) => {
 
     const toggleCartItemQuantity = (id, value) => {
         foundProduct = cartItems.find((item) => item._id === id)
-        index = cartItems.findIndex((product) => product._id === id);
-        // const newCartItems = cartItems.splice((index, 1));
-        // splice method mutates cartItems, which means it updates state, while filter doesn't
         const newCartItems = cartItems.filter((i) => i._id !== id);
         if(value === 'inc'){
             setCartItems([...newCartItems, {...foundProduct, quantity: foundProduct.quantity + 1}])
             setTotalPrice((prev) => prev + foundProduct.price);
             setTotalPrice((prev) => prev + 1);
-            // never update the state with assignment
-            // newCartItems[index] = foundProduct;
         }else if(value === 'dec'){
             if(foundProduct.quantity > 1){
                 setCartItems([...newCartItems, {...foundProduct, quantity: foundProduct.quantity - 1}])
@@ -50,6 +45,14 @@ export const StateContext = ({children}) => {
                 setTotalPrice((prev) => prev - 1);
             }
         }
+    }
+
+    const onRemove = (product) => {
+        foundProduct = cartItems.find((item) => item._id === product._id)
+        const newCartItems = cartItems.filter((i) => i._id !== product._id);
+        setTotalPrice((prev) => prev - foundProduct.price * foundProduct.quantity)
+        setTotalQuantities((prev) => prev - foundProduct.quantity)
+        setCartItems(newCartItems)
     }
 
     const incQty = () => { setQty((prev) => prev + 1) };
@@ -61,7 +64,8 @@ export const StateContext = ({children}) => {
 
     return(
         <Context.Provider
-            value={{showCart, setShowCart, cartItems, totalPrice, totalQuantities, qty, incQty, decQty, onAdd, toggleCartItemQuantity}}>
+            value={{showCart, setShowCart, cartItems, totalPrice, totalQuantities, qty, 
+            incQty, decQty, onAdd, toggleCartItemQuantity, onRemove}}>
                 {children}
         </Context.Provider>
     )
