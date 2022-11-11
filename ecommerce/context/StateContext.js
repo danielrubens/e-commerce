@@ -31,21 +31,6 @@ export const StateContext = ({children}) => {
         toast.success(`${qty} ${product.name} added to the cart.`);
     }
 
-    const toggleCartItemQuantity = (id, value) => {
-        foundProduct = cartItems.find((item) => item._id === id)
-        const newCartItems = cartItems.filter((i) => i._id !== id);
-        if(value === 'inc'){
-            setCartItems([...newCartItems, {...foundProduct, quantity: foundProduct.quantity + 1}])
-            setTotalPrice((prev) => prev + foundProduct.price);
-            setTotalPrice((prev) => prev + 1);
-        }else if(value === 'dec'){
-            if(foundProduct.quantity > 1){
-                setCartItems([...newCartItems, {...foundProduct, quantity: foundProduct.quantity - 1}])
-                setTotalPrice((prev) => prev - foundProduct.price);
-                setTotalPrice((prev) => prev - 1);
-            }
-        }
-    }
 
     const onRemove = (product) => {
         foundProduct = cartItems.find((item) => item._id === product._id)
@@ -53,6 +38,23 @@ export const StateContext = ({children}) => {
         setTotalPrice((prev) => prev - foundProduct.price * foundProduct.quantity)
         setTotalQuantities((prev) => prev - foundProduct.quantity)
         setCartItems(newCartItems)
+    }
+
+    const toggleCartItemQuantity = (id, value) => {
+        foundProduct = cartItems.find((item) => item._id === id)
+        const index = cartItems.findIndex((product) => product._id === id)
+        const newCartItems = cartItems.filter((i) => i._id !== id);
+        if(value === 'inc'){
+            setCartItems([...newCartItems, {...foundProduct, quantity: foundProduct.quantity + 1}])
+            setTotalPrice((prev) => prev + foundProduct.price);
+            setTotalQuantities(prev => prev + 1)
+        }else if(value === 'dec'){
+            if(foundProduct.quantity > 1){
+                setCartItems([...newCartItems, {...foundProduct, quantity: foundProduct.quantity - 1}])
+                setTotalPrice((prev) => prev - foundProduct.price);
+                setTotalQuantities(prev => prev - 1)
+            }
+        }
     }
 
     const incQty = () => { setQty((prev) => prev + 1) };
