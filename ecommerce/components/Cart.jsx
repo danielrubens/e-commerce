@@ -84,7 +84,6 @@ const Cart = () => {
                 Pay with Stripe
               </button>
             </div>
-
           </div>
         )}
       </div>

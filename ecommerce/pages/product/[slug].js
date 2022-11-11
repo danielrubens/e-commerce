@@ -25,7 +25,6 @@ const ProductDetails = ({product, products}) => {
                       className={j === index ? 'small-image selected-image' : 'small-image'}
                       onMouseEnter={() => setIndex(j)}
                     />
-
                   ))}
                 </div>
             </div>
@@ -87,19 +86,20 @@ const ProductDetails = ({product, products}) => {
 }
 
 export const getStaticPaths = async () => {
-  const query = `*[_type == "product"] {
-    slug {
-      current
-    }
-  }`;
-  const products = await client.fetch(query);
-  const paths = products.map((i) => ({
-    params: {
-      slug: i.slug.current
-    }
-  }));
-  return { paths, fallback: 'blocking' }
+    const query = `*[_type == "product"] {
+      slug {
+        current
+      }
+    }`;
+    const products = await client.fetch(query);
+    const paths = products.map((i) => ({
+      params: {
+        slug: i.slug.current
+      }
+    }));
+    return { paths, fallback: 'blocking' }
 }
+
 export const getStaticProps = async ({params: {slug}}) => {
     const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
     const productsQuery = '*[_type == "product"]'
@@ -109,4 +109,5 @@ export const getStaticProps = async ({params: {slug}}) => {
       props: {products, product}
     }
   }
+
 export default ProductDetails
