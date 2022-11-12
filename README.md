@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://danielrubens-ecommerce.vercel.app/)
+This is a [Next.js](https://nextjs.org/) project [`https://danielrubens-ecommerce.vercel.app/`](https://danielrubens-ecommerce.vercel.app/)
 
 ## Getting Started
 
