@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import {AiOutlineShopping} from 'react-icons/ai';
+import {AiOutlineShopping, AiOutlineSearch} from 'react-icons/ai';
 import {Cart} from './';
 import { useStateContext } from '../context/StateContext';
 
@@ -9,8 +9,12 @@ const Navbar = () => {
   return (
     <div className='navbar-container'>
        <p className='logo'>
-          <Link href="/">JSM Headphones</Link>  
+          <Link href="/">G3 Store</Link>  
        </p>
+       <div className='input-nav-container'>
+       <input type='text' className='input-nav'/>
+       <AiOutlineSearch className='input-nav-icon'/>
+       </div>
       <button
           type="button"
           className="cart-icon"
@@ -23,4 +27,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default Navbar;
