@@ -13,7 +13,7 @@ const Navbar = () => {
        </p>
        <div className='input-nav-container'>
        <input type='text' className='input-nav'/>
-       <AiOutlineSearch className='input-nav-icon'/>
+       <AiOutlineSearch className=''/>
        </div>
       <button
           type="button"
